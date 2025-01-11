@@ -1,6 +1,6 @@
 import { Account } from "../../entities/account";
 import { SignupError } from "../errors/SignupError";
 
-export interface AccountRepositoryInterface {
+export interface SaveAccount {
 	save(account: Account): Promise<Account | SignupError>
 }
