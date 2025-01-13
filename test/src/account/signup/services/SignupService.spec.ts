@@ -9,7 +9,7 @@ describe("SignupService", () => {
       "1234",
       "User Test",
       "test@example.com",
-      "123456789",
+      "98765432109",
       "ABC1234",
       true,
       false,
@@ -35,7 +35,7 @@ describe("SignupService", () => {
       "1234",
       "User Test",
       "test@example.com",
-      "123456789",
+      "98765432109",
       "ABC1234",
       true,
       false,
@@ -52,5 +52,29 @@ describe("SignupService", () => {
     await expect(signupService.execute()).rejects.toThrow(SignupError);
     expect(accountRepositoryMock.save).toHaveBeenCalledTimes(1);
     expect(accountRepositoryMock.save).toHaveBeenCalledWith(account);
+  });
+
+  it("should throw SignupError for invalid CPF", async () => {
+    const invalidCPF = '11111111111';
+    const account = new Account(
+      "1234",
+      "User Test",
+      "test@example.com",
+      invalidCPF,
+      "ABC1234",
+      true,
+      false,
+      "password123",
+      "argon2"
+    );
+
+    const accountRepositoryMock = {
+      save: jest.fn(),
+    } as unknown as SaveAccount;
+
+    const signupService = new SignupService(account, accountRepositoryMock);
+
+    await expect(signupService.execute()).rejects.toThrow(SignupError);
+    expect(accountRepositoryMock.save).not.toHaveBeenCalled();
   });
 });
