@@ -1,6 +1,6 @@
 import { Account } from "@/account/signup/entities/account";
-import { SignupError } from "../errors/SignupError";
-import { SaveAccount } from "../contracts/SaveAccount";
+import { SignupError } from "@/account/signup/application/errors/SignupError";
+import { SaveAccount } from "@/account/signup/application/contracts/SaveAccount";
 
 export class SignupService {
   constructor(
