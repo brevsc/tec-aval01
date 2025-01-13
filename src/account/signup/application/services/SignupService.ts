@@ -10,6 +10,9 @@ export class SignupService {
 
   async execute() {
     try {
+      const cpfValidatorRegex = /^(?!([0-9])\1{10})\d{11}$/;
+      if (!cpfValidatorRegex.test(this.account.cpf)) throw new SignupError();
+      
       return this.accountRepository.save(this.account);
     } catch {
       throw new SignupError();
